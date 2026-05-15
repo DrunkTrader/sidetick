@@ -20,7 +20,9 @@ declare global {
 
 export default function LoginPage(): React.JSX.Element {
   const [statusText, setStatusText] = useState("");
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [isTelegramLoading, setIsTelegramLoading] = useState(false);
+  const [isTelegramConfigured, setIsTelegramConfigured] = useState(true);
 
   useEffect(() => {
     const error = new URLSearchParams(window.location.search).get("error");
@@ -38,7 +40,7 @@ export default function LoginPage(): React.JSX.Element {
     }
 
     if (!botUsername) {
-      setStatusText("Telegram login is not configured.");
+      setIsTelegramConfigured(false);
       return;
     }
 
@@ -67,7 +69,7 @@ export default function LoginPage(): React.JSX.Element {
           window.location.href = redirectTo;
         } catch (error) {
           console.error("[LOGIN_TELEGRAM]", error);
-          setStatusText("Telegram login failed.");
+          setStatusText("Telegram login failed. Please try again.");
         } finally {
           setIsTelegramLoading(false);
         }
@@ -91,35 +93,55 @@ export default function LoginPage(): React.JSX.Element {
     };
   }, []);
 
+  const startGoogleLogin = (): void => {
+    setIsGoogleLoading(true);
+    setStatusText("");
+    window.location.href = "/api/auth/google/start";
+  };
+
   return (
     <main className="min-h-screen bg-[var(--color-navy)] px-6 py-20 text-[var(--color-text-primary)]">
-      <div className="mx-auto max-w-md rounded-2xl border border-[rgba(0,200,150,0.12)] bg-[var(--gradient-card)] p-8">
-        <h1 className="font-[var(--font-display)] text-3xl">Login to Sidetick</h1>
+      <div className="mx-auto max-w-md rounded-2xl border border-[rgba(0,200,150,0.12)] bg-[var(--gradient-card)] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--color-teal)]">Sidetick</p>
+        <h1 className="mt-3 font-[var(--font-display)] text-3xl">Login to your account</h1>
         <p className="mt-3 text-sm text-[var(--color-text-muted)]">
-          Continue with your Google account or Telegram account.
+          Continue with your Google account or Telegram account to access your courses.
         </p>
+
+        {statusText ? (
+          <div
+            role="alert"
+            aria-live="polite"
+            className="mt-5 rounded-xl border border-[rgba(255,75,75,0.35)] bg-[rgba(255,75,75,0.08)] px-4 py-3 text-sm text-[var(--color-text-primary)]"
+          >
+            {statusText}
+          </div>
+        ) : null}
 
         <div className="mt-6 space-y-4">
           <button
             type="button"
-            onClick={() => {
-              window.location.href = "/api/auth/google/start";
-            }}
-            className="w-full rounded-full bg-[var(--gradient-cta)] px-5 py-2 text-sm font-semibold text-[var(--color-navy)]"
+            onClick={startGoogleLogin}
+            disabled={isGoogleLoading}
+            className="w-full rounded-full bg-[var(--gradient-cta)] px-5 py-3 text-sm font-semibold text-[var(--color-navy)] transition disabled:cursor-not-allowed disabled:opacity-70"
           >
-            Continue with Google
+            {isGoogleLoading ? "Opening Google login..." : "Continue with Google"}
           </button>
 
           <div className="rounded-xl border border-[rgba(0,200,150,0.2)] p-4">
             <p className="mb-3 text-xs text-[var(--color-text-muted)]">Continue with Telegram</p>
-            <div id="telegram-login-widget" className="flex justify-center" />
-            {isTelegramLoading ? (
-              <p className="mt-3 text-center text-xs text-[var(--color-text-muted)]">Signing in...</p>
-            ) : null}
+            {isTelegramConfigured ? (
+              <>
+                <div id="telegram-login-widget" className="flex justify-center" />
+                {isTelegramLoading ? (
+                  <p className="mt-3 text-center text-xs text-[var(--color-text-muted)]">Signing in...</p>
+                ) : null}
+              </>
+            ) : (
+              <p className="text-sm text-[var(--color-text-muted)]">Telegram login is currently unavailable.</p>
+            )}
           </div>
         </div>
-
-        {statusText ? <p className="mt-4 text-xs text-[var(--color-text-muted)]">{statusText}</p> : null}
       </div>
     </main>
   );

@@ -188,7 +188,7 @@ export function VideoPlayer({
         <h1 className="font-[var(--font-display)] text-2xl">{lessonTitle}</h1>
         <p className="mt-1 text-xs text-[var(--color-text-muted)]">
           {moduleTitle} · Watched {Math.round(watchedPercent)}%
-          {isCompleted ? " · ✅ Completed" : ""}
+          {isCompleted ? " · Completed" : ""}
         </p>
       </div>
 
@@ -198,7 +198,7 @@ export function VideoPlayer({
             href={previousLessonHref}
             className="rounded-full border border-[rgba(0,200,150,0.2)] px-4 py-2 text-[var(--color-text-primary)]"
           >
-            ← Previous
+            Previous
           </Link>
         ) : (
           <span />
@@ -208,7 +208,7 @@ export function VideoPlayer({
             href={nextLessonHref}
             className="rounded-full border border-[rgba(0,200,150,0.2)] px-4 py-2 text-[var(--color-text-primary)]"
           >
-            Next →
+            Next
           </Link>
         ) : (
           <span />

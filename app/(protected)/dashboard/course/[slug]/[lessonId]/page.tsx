@@ -1,7 +1,8 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { CourseSidebar } from "@/components/portal/CourseSidebar";
 import { VideoPlayer } from "@/components/portal/VideoPlayer";
 import { flattenLessons, getCourseBySlug } from "@/lib/portal-data";
+import { requireCurrentSession } from "@/lib/session";
 
 type LessonPageProps = {
   params: Promise<{ slug: string; lessonId: string }>;
@@ -10,6 +11,11 @@ type LessonPageProps = {
 export default async function LessonPlayerPage({
   params,
 }: LessonPageProps): Promise<React.JSX.Element> {
+  const session = await requireCurrentSession();
+  if (session.user.purchases.length === 0) {
+    redirect("/dashboard");
+  }
+
   const { slug, lessonId } = await params;
   const course = getCourseBySlug(slug);
 
@@ -28,7 +34,7 @@ export default async function LessonPlayerPage({
   const previousLesson = currentIndex > 0 ? lessons[currentIndex - 1] : null;
   const nextLesson = currentIndex < lessons.length - 1 ? lessons[currentIndex + 1] : null;
 
-  const completedLessonIds = ["m1-l1", "m1-l2", "m2-l1", "m2-l2"];
+  const completedLessonIds = session.user.progress.filter((item) => item.isCompleted).map((item) => item.lessonId);
   const inProgressLessonId = currentLesson.lesson.id;
 
   return (
@@ -47,8 +53,8 @@ export default async function LessonPlayerPage({
           lessonTitle={currentLesson.lesson.title}
           moduleTitle={`Module ${currentLesson.module.order}`}
           totalSeconds={currentLesson.lesson.totalSeconds}
-          userEmail="student@sidetick.in"
-          userPhone="+919999999999"
+          userEmail={session.user.email ?? session.user.name ?? session.user.id}
+          userPhone={session.user.phone ?? "Phone not provided"}
           previousLessonHref={
             previousLesson ? `/dashboard/course/${course.slug}/${previousLesson.lesson.id}` : undefined
           }

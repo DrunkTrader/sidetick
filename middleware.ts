@@ -62,26 +62,35 @@ async function verifyJwtInMiddleware(token: string): Promise<MiddlewarePayload |
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
-  const isProtectedRoute = request.nextUrl.pathname.startsWith("/dashboard");
+  const isDashboardRoute = request.nextUrl.pathname.startsWith("/dashboard");
   const isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
+  const requiresAuth = isDashboardRoute || isAdminRoute;
 
-  if (isProtectedRoute && !token) {
+  if (!requiresAuth) {
+    return NextResponse.next();
+  }
+
+  if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (isProtectedRoute && token) {
-    const payload = await verifyJwtInMiddleware(token);
-    if (!payload) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-
-    if (isAdminRoute && payload.role !== "ADMIN") {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
+  const payload = await verifyJwtInMiddleware(token);
+  if (!payload) {
+    const response = NextResponse.redirect(new URL("/login", request.url));
+    response.cookies.set({
+      name: SESSION_COOKIE_NAME,
+      value: "",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 0,
+    });
+    return response;
   }
 
-  if (isAdminRoute && !token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (isAdminRoute && payload.role !== "ADMIN") {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();

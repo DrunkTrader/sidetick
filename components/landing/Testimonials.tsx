@@ -3,25 +3,25 @@ const testimonials = [
     name: "Rohit M.",
     role: "Intraday Trader · Pune",
     result: "Built my first Pine strategy and automated execution in 2 weeks.",
-    rating: "★★★★★",
+    rating: "5.0 out of 5",
   },
   {
     name: "Neha S.",
     role: "Options Trader · Bengaluru",
     result: "No coding background, but now I run alert-to-order automation daily.",
-    rating: "★★★★★",
+    rating: "5.0 out of 5",
   },
   {
     name: "Arjun K.",
     role: "Part-time Trader · Mumbai",
     result: "The Dhan API modules removed all guesswork from deployment.",
-    rating: "★★★★★",
+    rating: "5.0 out of 5",
   },
   {
     name: "Vikram P.",
     role: "Swing Trader · Delhi",
     result: "The templates alone saved me months of trial and error.",
-    rating: "★★★★★",
+    rating: "5.0 out of 5",
   },
 ];
 

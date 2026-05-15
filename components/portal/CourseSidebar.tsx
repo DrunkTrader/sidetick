@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { CourseDetails, CourseLesson, CourseModule } from "@/lib/portal-data";
-import { getCourseProgressPercent } from "@/lib/portal-data";
-import { ProgressBar } from "./ProgressBar";
+import { getCourseProgressPercent, type CourseDetails, type CourseLesson, type CourseModule } from "@/lib/portal-data";
 
 type CourseSidebarProps = {
   course: CourseDetails;
@@ -14,15 +12,17 @@ type CourseSidebarProps = {
   hasPurchase: boolean;
 };
 
-function getModuleStatus(module: CourseModule, completedLessonIds: string[], inProgressLessonId?: string): string {
+type LessonStatus = "Complete" | "In progress" | "Locked" | "Not started";
+
+function getModuleStatus(module: CourseModule, completedLessonIds: string[], inProgressLessonId?: string): LessonStatus {
   const completedCount = module.lessons.filter((lesson) => completedLessonIds.includes(lesson.id)).length;
   if (completedCount === module.lessons.length && module.lessons.length > 0) {
-    return "✅";
+    return "Complete";
   }
   if (module.lessons.some((lesson) => lesson.id === inProgressLessonId || completedLessonIds.includes(lesson.id))) {
-    return "🔵";
+    return "In progress";
   }
-  return "⬜";
+  return "Not started";
 }
 
 function isModuleLocked(module: CourseModule, hasPurchase: boolean): boolean {
@@ -34,17 +34,28 @@ function getLessonStatus(
   activeLessonId: string | undefined,
   completedLessonIds: string[],
   locked: boolean,
-): string {
+): LessonStatus {
   if (locked) {
-    return "🔒";
+    return "Locked";
   }
   if (completedLessonIds.includes(lesson.id)) {
-    return "✅";
+    return "Complete";
   }
   if (lesson.id === activeLessonId) {
-    return "🔵";
+    return "In progress";
   }
-  return "⬜";
+  return "Not started";
+}
+
+function StatusBadge({ status }: { status: LessonStatus }): React.JSX.Element {
+  const statusClassName = {
+    Complete: "border-[rgba(0,200,150,0.35)] text-[var(--color-teal-light)]",
+    "In progress": "border-[rgba(26,107,255,0.35)] text-[var(--color-blue-light)]",
+    Locked: "border-[rgba(255,184,0,0.35)] text-[var(--color-warning)]",
+    "Not started": "border-[rgba(138,155,196,0.25)] text-[var(--color-text-muted)]",
+  }[status];
+
+  return <span className={`rounded-full border px-2 py-0.5 text-[10px] ${statusClassName}`}>{status}</span>;
 }
 
 export function CourseSidebar({
@@ -73,10 +84,16 @@ export function CourseSidebar({
   return (
     <aside className="rounded-2xl border border-[rgba(0,200,150,0.12)] bg-[var(--gradient-card)] p-4">
       <h2 className="font-[var(--font-display)] text-xl">{course.title}</h2>
+      <div className="mt-3">
+        <p className="text-xs text-[var(--color-text-muted)]">Progress: {progressPercent}%</p>
+        <div className="mt-2 h-2 overflow-hidden rounded-full bg-[rgba(0,200,150,0.12)]">
+          <div className="h-full rounded-full bg-[var(--gradient-cta)]" style={{ width: `${progressPercent}%` }} />
+        </div>
+      </div>
       <div className="mt-5 space-y-2">
         {course.modules.map((module) => {
           const locked = isModuleLocked(module, hasPurchase);
-          const moduleStatus = locked ? "🔒" : getModuleStatus(module, completedLessonIds, inProgressLessonId);
+          const moduleStatus = locked ? "Locked" : getModuleStatus(module, completedLessonIds, inProgressLessonId);
           const isOpen = openModuleIds.includes(module.id);
 
           return (
@@ -84,10 +101,13 @@ export function CourseSidebar({
               <button
                 type="button"
                 onClick={() => toggleModule(module.id)}
-                className="flex w-full items-center justify-between px-3 py-3 text-left"
+                className="flex w-full items-center justify-between gap-3 px-3 py-3 text-left"
               >
-                <span className="text-sm text-[var(--color-text-primary)]">
-                  {moduleStatus} Module {module.order}: {module.title}
+                <span className="flex flex-col gap-2 text-sm text-[var(--color-text-primary)]">
+                  <StatusBadge status={moduleStatus} />
+                  <span>
+                    Module {module.order}: {module.title}
+                  </span>
                 </span>
                 <span className="text-xs text-[var(--color-text-muted)]">{module.lessons.length} lessons</span>
               </button>
@@ -107,10 +127,11 @@ export function CourseSidebar({
                       return (
                         <div
                           key={lesson.id}
-                          className="flex items-center justify-between rounded-lg px-2 py-2 text-xs text-[var(--color-text-muted)]"
+                          className="flex items-center justify-between gap-3 rounded-lg px-2 py-2 text-xs text-[var(--color-text-muted)]"
                         >
-                          <span>
-                            {lessonStatus} {lesson.title}
+                          <span className="flex flex-col gap-1">
+                            <StatusBadge status={lessonStatus} />
+                            <span>{lesson.title}</span>
                           </span>
                           <span>{lesson.durationLabel}</span>
                         </div>
@@ -121,14 +142,15 @@ export function CourseSidebar({
                       <Link
                         key={lesson.id}
                         href={`/dashboard/course/${course.slug}/${lesson.id}`}
-                        className={`flex items-center justify-between rounded-lg px-2 py-2 text-xs transition ${
+                        className={`flex items-center justify-between gap-3 rounded-lg px-2 py-2 text-xs transition ${
                           isActive
                             ? "bg-[var(--color-teal-glow)] text-[var(--color-teal-light)]"
                             : "text-[var(--color-text-muted)] hover:bg-[rgba(0,200,150,0.08)] hover:text-[var(--color-text-primary)]"
                         }`}
                       >
-                        <span>
-                          {lessonStatus} {lesson.title}
+                        <span className="flex flex-col gap-1">
+                          <StatusBadge status={lessonStatus} />
+                          <span>{lesson.title}</span>
                         </span>
                         <span>{lesson.durationLabel}</span>
                       </Link>
@@ -139,13 +161,6 @@ export function CourseSidebar({
             </div>
           );
         })}
-      </div>
-
-      <div className="mt-6 rounded-xl border border-[rgba(0,200,150,0.12)] bg-[var(--color-navy)]/40 p-3">
-        <p className="text-xs text-[var(--color-text-muted)]">Progress: {progressPercent}%</p>
-        <div className="mt-2">
-          <ProgressBar value={progressPercent} />
-        </div>
       </div>
     </aside>
   );

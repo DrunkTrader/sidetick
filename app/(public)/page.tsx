@@ -20,22 +20,22 @@ const problemPoints = [
 
 const featureCards = [
   {
-    icon: "⚡",
+    label: "Scripts",
     title: "Ready-to-Deploy Scripts",
     description: "Get Pine Script templates + webhook handlers usable from Day 1",
   },
   {
-    icon: "🎯",
+    label: "API",
     title: "Dhan API Mastery",
     description: "Full coverage of Dhan's order API — market, limit, and SL orders",
   },
   {
-    icon: "📱",
+    label: "Responsive",
     title: "Mobile Responsive",
     description: "Watch lessons on phone, tablet, or desktop",
   },
   {
-    icon: "🔄",
+    label: "Updates",
     title: "Lifetime Updates",
     description: "Course updated as TradingView and Dhan API evolve",
   },
@@ -151,7 +151,9 @@ export default function LandingPage(): React.JSX.Element {
                 key={card.title}
                 className="rounded-2xl border border-[rgba(0,200,150,0.12)] bg-[var(--gradient-card)] p-5"
               >
-                <p className="text-2xl">{card.icon}</p>
+                <p className="inline-flex rounded-full border border-[rgba(0,200,150,0.24)] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-teal)]">
+                  {card.label}
+                </p>
                 <h3 className="mt-3 text-lg font-semibold">{card.title}</h3>
                 <p className="mt-2 text-sm text-[var(--color-text-muted)]">{card.description}</p>
               </article>
@@ -163,7 +165,9 @@ export default function LandingPage(): React.JSX.Element {
       <section className="px-4 py-16 md:px-6">
         <div className="mx-auto grid max-w-6xl gap-8 rounded-3xl border border-[rgba(0,200,150,0.12)] bg-[var(--gradient-card)] p-7 md:grid-cols-2">
           <div className="rounded-2xl bg-[var(--color-navy)] p-10 text-center text-[var(--color-text-muted)]">
-            Instructor Photo
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--color-teal)]">Founder-led</p>
+            <p className="mt-4 font-[var(--font-display)] text-3xl text-[var(--color-text-primary)]">Practical trading automation training</p>
+            <p className="mt-4 text-sm">Built around scripts, webhooks, broker APIs, and deployment checklists used in real workflows.</p>
           </div>
           <div>
             <h2 className="font-[var(--font-display)] text-3xl md:text-4xl">Built by Sidetick Founder</h2>
@@ -199,10 +203,10 @@ export default function LandingPage(): React.JSX.Element {
 
       <a
         href="https://wa.me/919999999999"
-        className="fixed bottom-20 right-4 z-40 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-xl text-white shadow-lg md:bottom-6"
+        className="fixed bottom-20 right-4 z-40 inline-flex rounded-full bg-[#25D366] px-4 py-3 text-sm font-semibold text-white shadow-lg md:bottom-6"
         aria-label="Chat on WhatsApp"
       >
-        💬
+        Chat
       </a>
 
       {showExitModal && (

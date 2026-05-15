@@ -54,7 +54,7 @@ export function Navbar(): React.JSX.Element {
             href="#pricing"
             className="hidden rounded-full bg-[var(--gradient-cta)] px-5 py-2 text-sm font-bold text-[var(--color-text-dark)] shadow-[0_0_30px_rgba(0,200,150,0.15)] md:inline-flex"
           >
-            Enroll Now →
+            Enroll Now
           </a>
           <button
             type="button"
@@ -85,7 +85,7 @@ export function Navbar(): React.JSX.Element {
               onClick={() => setIsMobileMenuOpen(false)}
               className="inline-flex w-fit rounded-full bg-[var(--gradient-cta)] px-5 py-2 text-sm font-bold text-[var(--color-text-dark)]"
             >
-              Enroll Now →
+              Enroll Now
             </a>
           </div>
         </div>

@@ -19,11 +19,11 @@ export function Hero({ priceLabel }: HeroProps): React.JSX.Element {
               href="#pricing"
               className="inline-flex rounded-full bg-[var(--gradient-cta)] px-7 py-3 text-base font-bold text-[var(--color-text-dark)] shadow-[0_0_36px_rgba(0,200,150,0.2)]"
             >
-              🔥 Enroll in Mini Quant — {priceLabel}
+              Enroll in Mini Quant — {priceLabel}
             </a>
           </div>
           <p className="mt-4 text-sm text-[var(--color-text-muted)]">
-            🔒 Lifetime Access | ✅ 40K+ Community | ⭐ 4.9/5 Rating
+            Lifetime Access | 40K+ Community | 4.9/5 Rating
           </p>
         </div>
 
