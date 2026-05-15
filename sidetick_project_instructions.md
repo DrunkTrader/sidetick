@@ -277,8 +277,8 @@ Convert warm Instagram/WhatsApp leads into paying students for Mini Quant. The p
 Headline:       "Automate Your Trading. Stop Guessing. Start Earning."
 Sub-headline:   "Learn Pine Script, TradingView Alerts & Dhan API Integration
                  in 22 hours — with real scripts you can deploy from Day 1."
-CTA:            [🔥 Enroll in Mini Quant — ₹___]
-Trust nudge:    "🔒 Lifetime Access  |  ✅ 40K+ Community  |  ⭐ 4.9/5 Rating"
+CTA:            [ Enroll in Mini Quant — ₹___]
+Trust nudge:    " Lifetime Access  |   40K+ Community  |   4.9/5 Rating"
 Visual:         Animated trading chart / code snippet visual on right
 ```
 
@@ -313,10 +313,10 @@ Visual:         Animated trading chart / code snippet visual on right
 4 feature cards:
 | Icon | Title | Description |
 |---|---|---|
-| ⚡ | Ready-to-Deploy Scripts | Get Pine Script templates + webhook handlers usable from Day 1 |
-| 🎯 | Dhan API Mastery | Full coverage of Dhan's order API — market, limit, SL orders |
-| 📱 | Mobile Responsive | Watch lessons on phone, tablet, or desktop |
-| 🔄 | Lifetime Updates | Course updated as TradingView and Dhan API evolve |
+|  | Ready-to-Deploy Scripts | Get Pine Script templates + webhook handlers usable from Day 1 |
+|  | Dhan API Mastery | Full coverage of Dhan's order API — market, limit, SL orders |
+|  | Mobile Responsive | Watch lessons on phone, tablet, or desktop |
+|  | Lifetime Updates | Course updated as TradingView and Dhan API evolve |
 
 #### Section 7: Instructor / Brand Trust Section
 - Sidetick founder/instructor photo and short bio
@@ -334,7 +334,7 @@ Visual:         Animated trading chart / code snippet visual on right
 Price:    ₹X,XXX  (original ₹X,XXX — XX% off)
 Includes: 22 hours · 11 modules · Scripts library · Lifetime access · Community access
 
-[🔥 Enroll Now — ₹X,XXX]
+[ Enroll Now — ₹X,XXX]
 
 Guarantee: "7-day money-back guarantee. No questions asked."
 Payment icons: UPI · Cards · Net Banking · EMI available
@@ -391,14 +391,14 @@ Route Protection Logic:
 │                  │                                          │
 │  Mini Quant      │  [ VIDEO PLAYER ]                       │
 │  ─────────────   │                                          │
-│  Module 1 ✅     │  Lesson Title                            │
-│  > Lesson 1 ✅   │  Module 3 · Lesson 2 of 5               │
-│  > Lesson 2 ✅   │                                          │
-│  > Lesson 3 🔵   │  [← Previous]           [Next →]        │
+│  Module 1      │  Lesson Title                            │
+│  > Lesson 1    │  Module 3 · Lesson 2 of 5               │
+│  > Lesson 2    │                                          │
+│  > Lesson 3    │  [← Previous]           [Next →]        │
 │  > Lesson 4      │                                          │
-│  Module 2 ✅     │  Lesson Notes / Resources               │
-│  Module 3 🔵     │  [ Download Worksheet ]                 │
-│  Module 4–11 🔒  │  [ View Script on GitHub ]              │
+│  Module 2      │  Lesson Notes / Resources               │
+│  Module 3      │  [ Download Worksheet ]                 │
+│  Module 4–11   │  [ View Script on GitHub ]              │
 │                  │                                          │
 │  Progress: 23%   │                                          │
 │  [████░░░░░░░]   │                                          │
@@ -420,9 +420,9 @@ Route Protection Logic:
 ```
 Each Module:
   - Module title + lesson count
-  - Completion status icon: ✅ Complete | 🔵 In Progress | ⬜ Not Started
+  - Completion status icon:  Complete |  In Progress |  Not Started
   - Expandable to show lesson list
-  - Locked modules shown with 🔒 (all unlocked for purchased users)
+  - Locked modules shown with  (all unlocked for purchased users)
 
 Each Lesson:
   - Lesson title
@@ -488,7 +488,7 @@ User visits /freebies
 Headline:   "Free Resources for Traders"
 Subtext:    "Pine Script templates, strategy guides & automation tools — 100% free.
              Enter your WhatsApp number to unlock instant access."
-CTA:        [📲 Unlock Free Access]
+CTA:        [ Unlock Free Access]
 ```
 
 #### Freebie Grid (3-column on desktop, 1 on mobile)
@@ -500,7 +500,7 @@ Each freebie card contains:
 Title: "EMA Crossover Strategy — Pine Script Template"
 Description: 2–3 lines about what it includes
 Format badge: PDF | .pine | ZIP | Video
-[🔒 Unlock to Download]  → after unlock → [⬇ Download Now]
+[ Unlock to Download]  → after unlock → [ Download Now]
 ```
 
 #### Suggested Freebies List
@@ -517,7 +517,7 @@ Format badge: PDF | .pine | ZIP | Video
 #### Footer CTA
 ```
 "Want the full 22-hour course with 11 modules and live scripts?"
-[🔥 Join Mini Quant →]
+[ Join Mini Quant →]
 ```
 
 ### 7.4 Lead Capture Data

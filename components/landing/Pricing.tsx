@@ -25,7 +25,7 @@ export function Pricing({ priceLabel, originalPriceLabel }: PricingProps): React
             href="#"
             className="mt-7 inline-flex rounded-full bg-[var(--gradient-cta)] px-8 py-3 text-base font-bold text-[var(--color-text-dark)]"
           >
-            🔥 Enroll Now — {priceLabel}
+            Enroll Now — {priceLabel}
           </a>
 
           <p className="mt-4 text-sm text-[var(--color-text-muted)]">

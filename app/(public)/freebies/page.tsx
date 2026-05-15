@@ -8,7 +8,7 @@ import { PhoneCaptureModal } from "@/components/freebies/PhoneCaptureModal";
 type FreebieItem = {
   id: string;
   category: string;
-  icon: string;
+  label: string;
   title: string;
   description: string;
   format: string;
@@ -18,7 +18,7 @@ const freebies: FreebieItem[] = [
   {
     id: "ema-crossover-template",
     category: "Pine Script",
-    icon: "📈",
+    label: "Template",
     title: "EMA Crossover Strategy — Pine Script Template",
     description: "Ready-to-use TradingView strategy template for quick deployment.",
     format: ".pine",
@@ -26,7 +26,7 @@ const freebies: FreebieItem[] = [
   {
     id: "dhan-api-quickstart",
     category: "Guide",
-    icon: "📘",
+    label: "Guide",
     title: "Dhan API Quickstart Guide",
     description: "Step-by-step API setup guide built for complete beginners.",
     format: "PDF",
@@ -34,7 +34,7 @@ const freebies: FreebieItem[] = [
   {
     id: "supertrend-rsi-combo",
     category: "Pine Script",
-    icon: "⚙️",
+    label: "Strategy",
     title: "Supertrend + RSI Combo Strategy",
     description: "Trend-following automation script with clear entry/exit logic.",
     format: ".pine",
@@ -42,7 +42,7 @@ const freebies: FreebieItem[] = [
   {
     id: "webhook-checklist",
     category: "Checklist",
-    icon: "✅",
+    label: "Checklist",
     title: "TradingView Webhook Setup Checklist",
     description: "10-step checklist to configure webhooks reliably.",
     format: "PDF",
@@ -50,7 +50,7 @@ const freebies: FreebieItem[] = [
   {
     id: "risk-management-sheet",
     category: "Risk Management",
-    icon: "🧮",
+    label: "Formula",
     title: "Risk Management Formula Sheet",
     description: "Position sizing and stop-loss calculator formulas in one sheet.",
     format: "PDF",
@@ -58,7 +58,7 @@ const freebies: FreebieItem[] = [
   {
     id: "pine-functions-cheatsheet",
     category: "Reference",
-    icon: "🧠",
+    label: "Reference",
     title: "Top 10 Pine Script Functions Cheatsheet",
     description: "Fast reference sheet for the most-used Pine functions.",
     format: "PDF",
@@ -105,7 +105,7 @@ export default function FreebiesPage(): React.JSX.Element {
             onClick={() => setIsModalOpen(true)}
             className="mt-6 rounded-full bg-[var(--gradient-cta)] px-6 py-3 text-sm font-bold text-[var(--color-navy)]"
           >
-            📲 Unlock Free Access
+            Unlock Free Access
           </button>
           {verifiedPhone ? (
             <p className="mt-3 text-sm text-slate-600">Verified WhatsApp: {verifiedPhone}</p>
@@ -118,7 +118,7 @@ export default function FreebiesPage(): React.JSX.Element {
               <FreebieCard
                 key={item.id}
                 category={item.category}
-                icon={item.icon}
+                label={item.label}
                 title={item.title}
                 description={item.description}
                 format={item.format}
@@ -139,7 +139,7 @@ export default function FreebiesPage(): React.JSX.Element {
             href="/#pricing"
             className="mt-4 inline-flex rounded-full bg-[var(--gradient-cta)] px-6 py-3 text-sm font-bold text-[var(--color-navy)]"
           >
-            🔥 Join Mini Quant →
+            Join Mini Quant
           </Link>
         </section>
       </main>

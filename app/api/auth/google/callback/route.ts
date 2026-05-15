@@ -16,6 +16,7 @@ type GoogleTokenResponse = {
 type GoogleUserInfo = {
   sub?: string;
   email?: string;
+  email_verified?: boolean;
   name?: string;
 };
 
@@ -79,18 +80,34 @@ export async function GET(request: Request): Promise<Response> {
       return redirectToLoginWithError(request, "Google profile fetch failed.");
     }
 
-    const user = await db.user.upsert({
-      where: { googleId: userPayload.sub },
-      update: {
-        email: userPayload.email ?? undefined,
-        name: userPayload.name ?? undefined,
-      },
-      create: {
-        googleId: userPayload.sub,
-        email: userPayload.email ?? null,
-        name: userPayload.name ?? null,
-      },
-    });
+    const email = userPayload.email_verified === false ? undefined : userPayload.email?.trim().toLowerCase();
+    const existingByGoogleId = await db.user.findUnique({ where: { googleId: userPayload.sub } });
+    const existingByEmail = !existingByGoogleId && email ? await db.user.findUnique({ where: { email } }) : null;
+
+    const user = existingByGoogleId
+      ? await db.user.update({
+          where: { id: existingByGoogleId.id },
+          data: {
+            email: email ?? undefined,
+            name: userPayload.name ?? undefined,
+          },
+        })
+      : existingByEmail
+        ? await db.user.update({
+            where: { id: existingByEmail.id },
+            data: {
+              googleId: userPayload.sub,
+              email,
+              name: userPayload.name ?? existingByEmail.name,
+            },
+          })
+        : await db.user.create({
+            data: {
+              googleId: userPayload.sub,
+              email: email ?? null,
+              name: userPayload.name ?? null,
+            },
+          });
 
     const deviceInfo = request.headers.get("user-agent") ?? "unknown";
     const ipAddress =
