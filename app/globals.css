@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-navy: #0a1628;
+  --color-navy-mid: #0f2040;
+  --color-navy-light: #162845;
+  --color-teal: #00c896;
+  --color-teal-light: #00e6ab;
+  --color-teal-dark: #009e78;
+  --color-teal-glow: rgba(0, 200, 150, 0.15);
+  --color-blue: #1a6bff;
+  --color-blue-light: #3d85ff;
+  --color-blue-muted: rgba(26, 107, 255, 0.12);
+  --color-white: #ffffff;
+  --color-offwhite: #f4f7ff;
+  --color-text-primary: #e8eeff;
+  --color-text-muted: #8a9bc4;
+  --color-text-dark: #1a2340;
+  --color-success: #00c896;
+  --color-warning: #ffb800;
+  --color-error: #ff4b4b;
+  --gradient-hero: linear-gradient(135deg, #0a1628 0%, #0f2040 50%, #0a1628 100%);
+  --gradient-teal: linear-gradient(135deg, #00c896, #1a6bff);
+  --gradient-card: linear-gradient(145deg, #0f2040, #162845);
+  --gradient-cta: linear-gradient(135deg, #00c896 0%, #009e78 100%);
+  --font-display: "Syne", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+.landing-light {
+  --color-navy: #f8fbff;
+  --color-navy-mid: #edf4ff;
+  --color-navy-light: #dbe9ff;
+  --color-teal: #0f9d87;
+  --color-teal-light: #0a7f6d;
+  --color-teal-dark: #0b6d5d;
+  --color-teal-glow: rgba(15, 157, 135, 0.12);
+  --color-blue: #2b6ff2;
+  --color-blue-light: #1f5bd2;
+  --color-blue-muted: rgba(43, 111, 242, 0.1);
+  --color-text-primary: #0f172a;
+  --color-text-muted: #475569;
+  --color-text-dark: #0f172a;
+  --gradient-hero: linear-gradient(135deg, #f8fbff 0%, #edf4ff 50%, #f8fbff 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff, #f3f8ff);
+  --gradient-cta: linear-gradient(135deg, #14b8a6 0%, #0f9d87 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-navy);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}

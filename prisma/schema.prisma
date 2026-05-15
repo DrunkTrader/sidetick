@@ -1,0 +1,143 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── USERS ─────────────────────────────────────────────────────
+model User {
+  id          String    @id @default(cuid())
+  phone       String?   @unique
+  googleId    String?   @unique
+  telegramId  String?   @unique
+  email       String?   @unique
+  name        String?
+  role        Role      @default(STUDENT)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  sessions    Session[]
+  purchases   Purchase[]
+  progress    LessonProgress[]
+}
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+// ─── SESSIONS ──────────────────────────────────────────────────
+model Session {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  deviceInfo    String
+  ipAddress     String
+  isRevoked     Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  lastActiveAt  DateTime  @default(now())
+}
+
+// ─── COURSES ───────────────────────────────────────────────────
+model Course {
+  id          String    @id @default(cuid())
+  slug        String    @unique   // e.g. "mini-quant"
+  title       String
+  description String
+  price       Float
+  isPublished Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+
+  modules     Module[]
+  purchases   Purchase[]
+}
+
+// ─── MODULES ───────────────────────────────────────────────────
+model Module {
+  id          String    @id @default(cuid())
+  courseId    String
+  course      Course    @relation(fields: [courseId], references: [id])
+  title       String
+  order       Int
+  createdAt   DateTime  @default(now())
+
+  lessons     Lesson[]
+}
+
+// ─── LESSONS ───────────────────────────────────────────────────
+model Lesson {
+  id            String    @id @default(cuid())
+  moduleId      String
+  module        Module    @relation(fields: [moduleId], references: [id])
+  title         String
+  order         Int
+  bunnyVideoId  String    // Bunny Stream video GUID
+  durationSecs  Int       // Total video duration in seconds
+  resources     Json?     // Array of {title, url, type} attachments
+  createdAt     DateTime  @default(now())
+
+  progress      LessonProgress[]
+}
+
+// ─── PURCHASES ─────────────────────────────────────────────────
+model Purchase {
+  id                  String          @id @default(cuid())
+  userId              String
+  user                User            @relation(fields: [userId], references: [id])
+  courseId            String
+  course              Course          @relation(fields: [courseId], references: [id])
+  razorpayOrderId     String          @unique
+  razorpayPaymentId   String          @unique
+  amount              Float
+  status              PurchaseStatus  @default(ACTIVE)
+  purchasedAt         DateTime        @default(now())
+}
+
+enum PurchaseStatus {
+  ACTIVE
+  REFUNDED
+  REVOKED
+}
+
+// ─── LESSON PROGRESS ───────────────────────────────────────────
+model LessonProgress {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id])
+  lessonId        String
+  lesson          Lesson    @relation(fields: [lessonId], references: [id])
+  watchedSeconds  Int       @default(0)
+  lastPosition    Int       @default(0)   // Resume point in seconds
+  isCompleted     Boolean   @default(false)
+  lastWatchedAt   DateTime  @default(now())
+
+  @@unique([userId, lessonId])
+}
+
+// ─── FREEBIE LEADS ─────────────────────────────────────────────
+model FreebiesLead {
+  id          String    @id @default(cuid())
+  phone       String    @unique
+  verifiedAt  DateTime  @default(now())
+  ipAddress   String
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+}
+
+// ─── FREEBIE RESOURCES ─────────────────────────────────────────
+model FreebieResource {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  fileType    String    // "PDF" | "PINE" | "ZIP" | "VIDEO"
+  downloadUrl String    // Cloudflare R2 signed URL base
+  category    String    // "Pine Script" | "Guide" | "Checklist"
+  isPublished Boolean   @default(true)
+  order       Int
+}
