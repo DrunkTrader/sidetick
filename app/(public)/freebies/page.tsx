@@ -18,7 +18,7 @@ const freebies: FreebieItem[] = [
   {
     id: "ema-crossover-template",
     category: "Pine Script",
-    icon: "📈",
+    icon: "",
     title: "EMA Crossover Strategy — Pine Script Template",
     description: "Ready-to-use TradingView strategy template for quick deployment.",
     format: ".pine",
@@ -26,7 +26,7 @@ const freebies: FreebieItem[] = [
   {
     id: "dhan-api-quickstart",
     category: "Guide",
-    icon: "📘",
+    icon: "",
     title: "Dhan API Quickstart Guide",
     description: "Step-by-step API setup guide built for complete beginners.",
     format: "PDF",
@@ -34,7 +34,7 @@ const freebies: FreebieItem[] = [
   {
     id: "supertrend-rsi-combo",
     category: "Pine Script",
-    icon: "⚙️",
+    icon: "",
     title: "Supertrend + RSI Combo Strategy",
     description: "Trend-following automation script with clear entry/exit logic.",
     format: ".pine",
@@ -42,7 +42,7 @@ const freebies: FreebieItem[] = [
   {
     id: "webhook-checklist",
     category: "Checklist",
-    icon: "✅",
+    icon: "",
     title: "TradingView Webhook Setup Checklist",
     description: "10-step checklist to configure webhooks reliably.",
     format: "PDF",
@@ -50,7 +50,7 @@ const freebies: FreebieItem[] = [
   {
     id: "risk-management-sheet",
     category: "Risk Management",
-    icon: "🧮",
+    icon: "",
     title: "Risk Management Formula Sheet",
     description: "Position sizing and stop-loss calculator formulas in one sheet.",
     format: "PDF",
@@ -58,7 +58,7 @@ const freebies: FreebieItem[] = [
   {
     id: "pine-functions-cheatsheet",
     category: "Reference",
-    icon: "🧠",
+    icon: "",
     title: "Top 10 Pine Script Functions Cheatsheet",
     description: "Fast reference sheet for the most-used Pine functions.",
     format: "PDF",
@@ -98,17 +98,17 @@ export default function FreebiesPage(): React.JSX.Element {
           <h1 className="font-[var(--font-display)] text-4xl md:text-6xl">Free Resources for Traders</h1>
           <p className="mt-4 max-w-3xl text-base text-slate-600 md:text-lg">
             Pine Script templates, strategy guides &amp; automation tools — 100% free. Enter your
-            WhatsApp number to unlock instant access.
+            phone number to unlock instant access.
           </p>
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="mt-6 rounded-full bg-[var(--gradient-cta)] px-6 py-3 text-sm font-bold text-[var(--color-navy)]"
+            className="mt-6 rounded-full bg-[var(--gradient-cta)] px-6 py-3 text-sm font-bold text-white shadow-md hover:shadow-lg transition-shadow"
           >
-            📲 Unlock Free Access
+            Unlock Free Access
           </button>
           {verifiedPhone ? (
-            <p className="mt-3 text-sm text-slate-600">Verified WhatsApp: {verifiedPhone}</p>
+            <p className="mt-3 text-sm text-slate-600">Verified Phone: {verifiedPhone}</p>
           ) : null}
         </section>
 
@@ -137,9 +137,9 @@ export default function FreebiesPage(): React.JSX.Element {
           </p>
           <Link
             href="/#pricing"
-            className="mt-4 inline-flex rounded-full bg-[var(--gradient-cta)] px-6 py-3 text-sm font-bold text-[var(--color-navy)]"
+            className="mt-4 inline-flex rounded-full bg-[var(--gradient-cta)] px-6 py-3 text-sm font-bold text-white shadow-md hover:shadow-lg transition-shadow"
           >
-            🔥 Join Mini Quant →
+            Join Mini Quant →
           </Link>
         </section>
       </main>

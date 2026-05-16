@@ -29,7 +29,7 @@ export function PhoneCaptureModal({
 
   const onSendOtp = async (): Promise<void> => {
     if (normalizedPhone.length < 13) {
-      setStatusMessage("Please enter a valid WhatsApp number.");
+      setStatusMessage("Please enter a valid phone number.");
       return;
     }
 
@@ -99,7 +99,7 @@ export function PhoneCaptureModal({
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 px-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-6">
         <h2 className="font-[var(--font-display)] text-2xl text-[var(--color-text-dark)]">
-          Enter your WhatsApp number
+          Enter your phone number
         </h2>
         <p className="mt-2 text-sm text-slate-600">Unlock all freebies instantly after OTP verification.</p>
 

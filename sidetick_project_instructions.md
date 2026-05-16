@@ -41,7 +41,7 @@ Sidetick is a **premium algorithmic trading education platform** targeting India
 | Metric | Value |
 |---|---|
 | Instagram Followers | ~40,000 |
-| WhatsApp + Telegram Warm Audience | ~5,000 |
+| Telegram Warm Audience | ~5,000 |
 | Primary Market | Indian retail traders |
 | Flagship Product | Mini Quant (22 hrs, 11 modules) |
 | Payment Gateway | Razorpay (India-first) |
@@ -49,157 +49,17 @@ Sidetick is a **premium algorithmic trading education platform** targeting India
 
 ### Core Objectives
 
-- Convert Instagram/WhatsApp/Telegram warm leads into paying students
+- Convert Instagram/Telegram warm leads into paying students
 - Deliver piracy-protected premium course content post-purchase
 - Automate user onboarding immediately after Razorpay payment
 - Build a scalable foundation for a QuantInsti-style ecosystem
-- Generate lead magnet downloads to grow the WhatsApp funnel
+- Generate lead magnet downloads to grow the funnel
 
 ### Inspiration Reference
 
 The platform should mirror the professionalism and UX quality of **[QuantInsti](https://www.quantinsti.com/)** — structured learning paths, progress tracking, trust-building design — but designed specifically for Indian retail traders discovering trading automation for the first time.
 
 ---
-
-## 2. Brand & Design System
-
-### 2.1 Color Palette
-
-The Sidetick design uses a **deep navy blue + electric teal green** theme — conveying trust, precision, and modern financial technology.
-
-```css
-:root {
-  /* Primary Brand Colors */
-  --color-navy:         #0A1628;   /* Deep navy — primary backgrounds */
-  --color-navy-mid:     #0F2040;   /* Slightly lighter navy — cards, sections */
-  --color-navy-light:   #162845;   /* Hover states, borders */
-
-  /* Accent — Electric Teal */
-  --color-teal:         #00C896;   /* Primary CTA, highlights, links */
-  --color-teal-light:   #00E6AB;   /* Hover state of teal */
-  --color-teal-dark:    #009E78;   /* Active/pressed state */
-  --color-teal-glow:    rgba(0, 200, 150, 0.15); /* Glow effects, card borders */
-
-  /* Supporting Blue */
-  --color-blue:         #1A6BFF;   /* Secondary accent, badges */
-  --color-blue-light:   #3D85FF;   /* Hover state */
-  --color-blue-muted:   rgba(26, 107, 255, 0.12);
-
-  /* Neutral Scale */
-  --color-white:        #FFFFFF;
-  --color-offwhite:     #F4F7FF;   /* Light page backgrounds (freebies page) */
-  --color-text-primary: #E8EEFF;   /* Primary text on dark bg */
-  --color-text-muted:   #8A9BC4;   /* Secondary text, labels */
-  --color-text-dark:    #1A2340;   /* Text on light backgrounds */
-
-  /* Status Colors */
-  --color-success:      #00C896;   /* Success states (same as teal) */
-  --color-warning:      #FFB800;   /* Warnings */
-  --color-error:        #FF4B4B;   /* Errors */
-
-  /* Gradients */
-  --gradient-hero:      linear-gradient(135deg, #0A1628 0%, #0F2040 50%, #0A1628 100%);
-  --gradient-teal:      linear-gradient(135deg, #00C896, #1A6BFF);
-  --gradient-card:      linear-gradient(145deg, #0F2040, #162845);
-  --gradient-cta:       linear-gradient(135deg, #00C896 0%, #009E78 100%);
-}
-```
-
-### 2.2 Typography
-
-```css
-/* Fonts — Import via Google Fonts */
-/* Display: Syne (geometric, modern, financial feel) */
-/* Body: DM Sans (clean, readable, Indian-market friendly) */
-/* Mono: JetBrains Mono (code snippets, Pine Script examples) */
-
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
-
-:root {
-  --font-display: 'Syne', sans-serif;       /* Headlines, hero text */
-  --font-body:    'DM Sans', sans-serif;    /* Body copy, UI labels */
-  --font-mono:    'JetBrains Mono', monospace; /* Code samples */
-
-  /* Type Scale */
-  --text-hero:    clamp(2.8rem, 6vw, 5rem);
-  --text-h1:      clamp(2rem, 4vw, 3.25rem);
-  --text-h2:      clamp(1.5rem, 3vw, 2.25rem);
-  --text-h3:      clamp(1.2rem, 2vw, 1.5rem);
-  --text-body:    1rem;       /* 16px */
-  --text-sm:      0.875rem;   /* 14px */
-  --text-xs:      0.75rem;    /* 12px */
-}
-```
-
-### 2.3 Spacing & Layout
-
-```css
-:root {
-  --spacing-xs:   0.5rem;    /* 8px */
-  --spacing-sm:   1rem;      /* 16px */
-  --spacing-md:   1.5rem;    /* 24px */
-  --spacing-lg:   2.5rem;    /* 40px */
-  --spacing-xl:   4rem;      /* 64px */
-  --spacing-2xl:  6rem;      /* 96px */
-
-  --radius-sm:    6px;
-  --radius-md:    12px;
-  --radius-lg:    20px;
-  --radius-pill:  999px;
-
-  --max-width:    1200px;
-  --content-width: 780px;
-
-  --shadow-card:  0 4px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,200,150,0.08);
-  --shadow-glow:  0 0 40px rgba(0,200,150,0.2);
-}
-```
-
-### 2.4 Component Patterns
-
-**Primary CTA Button**
-```css
-.btn-primary {
-  background: var(--gradient-cta);
-  color: #0A1628;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.875rem 2rem;
-  border-radius: var(--radius-pill);
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glow);
-}
-```
-
-**Glass Card**
-```css
-.card {
-  background: var(--gradient-card);
-  border: 1px solid rgba(0,200,150,0.12);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  box-shadow: var(--shadow-card);
-  backdrop-filter: blur(8px);
-}
-```
-
-### 2.5 Design Mood
-
-- **Primary theme:** Dark navy backgrounds with electric teal accents — feels like a Bloomberg terminal meets a modern SaaS product
-- **Freebies page:** Use light `--color-offwhite` background (this page must feel welcoming and accessible, not intimidating)
-- **Animations:** Subtle entry animations (fade + slide-up), teal glow on CTAs, chart-ticker style number counters for social proof
-- **Imagery:** Abstract trading chart lines, waveform overlays, grid/dot patterns as section backgrounds
-- **Icons:** Lucide icons or Phosphor Icons (stroke style, not filled)
-
----
-
-## 3. Technical Stack
 
 ### 3.1 Recommended Stack
 
@@ -260,7 +120,7 @@ sidetick.in/
 
 ### 5.1 Page Goal
 
-Convert warm Instagram/WhatsApp leads into paying students for Mini Quant. The page should build trust quickly and drive to Razorpay checkout.
+Convert warm Instagram/Telegram leads into paying students for Mini Quant. The page should build trust quickly and drive to Razorpay checkout.
 
 ### 5.2 Page Sections (in order)
 
@@ -326,7 +186,7 @@ Visual:         Animated trading chart / code snippet visual on right
 #### Section 8: Testimonials
 - 3–6 student testimonials with name, photo, result
 - Star rating display
-- WhatsApp screenshot style cards for authenticity (Indian users trust WA screenshots)
+- Screenshot style cards for authenticity
 
 #### Section 9: Pricing & CTA
 ```
@@ -354,7 +214,7 @@ Suggested FAQs:
 ```
 [Sidetick Logo + tagline]
 Links: Home | Freebies | Login | Privacy Policy | Refund Policy | Contact
-Social: Instagram | Telegram | YouTube | WhatsApp Community
+Social: Instagram | Telegram | YouTube
 © 2025 Sidetick. All rights reserved.
 GST: XXXXXXXXXXXX
 ```
@@ -363,7 +223,6 @@ GST: XXXXXXXXXXXX
 
 - Sticky "Enroll Now" bar appears on mobile after scrolling past hero
 - Exit-intent popup: "Wait — get 10% off" → collects email
-- WhatsApp chat widget (bottom-right): Floating WhatsApp button
 - Scarcity nudge: "Only X seats available at this price" (can be static text or dynamic)
 - UPI as first payment option in Razorpay (higher conversion for Indian users)
 
@@ -464,7 +323,7 @@ interface LessonProgress {
 
 ### 7.1 Page Goal
 
-Capture WhatsApp numbers from non-paying visitors in exchange for free Pine Script templates, strategy guides, and automation resources. Build trust and warm up future buyers.
+Capture phone numbers from non-paying visitors in exchange for free Pine Script templates, strategy guides, and automation resources. Build trust and warm up future buyers.
 
 ### 7.2 Access Flow
 
@@ -472,7 +331,7 @@ Capture WhatsApp numbers from non-paying visitors in exchange for free Pine Scri
 User visits /freebies
 → Sees freebie cards with blurred/locked download buttons
 → Clicks "Get Free Access"
-→ Modal appears: "Enter your WhatsApp number to unlock all freebies"
+→ Modal appears: "Enter your phone number to unlock all freebies"
 → User enters phone → OTP sent → Verified
 → Phone saved to leads table
 → All freebies unlocked for session (localStorage flag)
@@ -487,7 +346,7 @@ User visits /freebies
 ```
 Headline:   "Free Resources for Traders"
 Subtext:    "Pine Script templates, strategy guides & automation tools — 100% free.
-             Enter your WhatsApp number to unlock instant access."
+             Enter your phone number to unlock instant access."
 CTA:        [📲 Unlock Free Access]
 ```
 
@@ -525,7 +384,7 @@ Format badge: PDF | .pine | ZIP | Video
 ```typescript
 interface FreebiesLead {
   id: string
-  phone: string         // WhatsApp number with country code
+  phone: string         // Phone number with country code
   verifiedAt: Date
   ipAddress: string
   utmSource?: string    // Track where they came from
@@ -551,7 +410,7 @@ interface FreebiesLead {
 2. POST /api/auth/send-otp { phone }
    → Generate 6-digit OTP
    → Store in Redis with 10-minute TTL: key = otp:{phone}, value = {otp, attempts: 0}
-   → Send via Twilio SMS (or WhatsApp Business API for WA OTP)
+   → Send via Twilio SMS
 3. User enters OTP
 4. POST /api/auth/verify-otp { phone, otp }
    → Check Redis: match + not expired + attempts < 3
@@ -636,7 +495,7 @@ Send welcome email + login link via Resend
         ↓
 Razorpay redirects user to /payment/success?order_id=xxx
         ↓
-Frontend shows success screen → "Check your WhatsApp/Email for login link"
+Frontend shows success screen → "Check your Email for login link"
         ↓
 User clicks magic login link → Authenticated → /dashboard
 ```

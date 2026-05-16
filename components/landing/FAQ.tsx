@@ -37,9 +37,9 @@ export function FAQ(): React.JSX.Element {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section id="faqs" className="px-4 py-16 md:px-6">
+    <section id="faqs" className="px-4 py-20 md:px-6">
       <div className="mx-auto max-w-4xl">
-        <h2 className="font-[var(--font-display)] text-3xl md:text-5xl">FAQs</h2>
+        <h2 className="font-[var(--font-display)] text-3xl md:text-5xl">Frequently asked by serious traders</h2>
         <div className="mt-8 space-y-3">
           {faqItems.map((item, index) => {
             const isOpen = openIndex === index;
@@ -47,7 +47,7 @@ export function FAQ(): React.JSX.Element {
             return (
               <div
                 key={item.question}
-                className="rounded-2xl border border-[rgba(0,200,150,0.12)] bg-[var(--gradient-card)]"
+                className="rounded-2xl border border-[rgba(255,255,255,0.12)] bg-[rgba(10,22,40,0.58)] backdrop-blur"
               >
                 <button
                   type="button"
@@ -61,7 +61,7 @@ export function FAQ(): React.JSX.Element {
                 </button>
 
                 {isOpen && (
-                  <p className="border-t border-[rgba(0,200,150,0.12)] px-5 py-4 text-sm text-[var(--color-text-muted)]">
+                  <p className="border-t border-[rgba(255,255,255,0.1)] px-5 py-4 text-sm text-[var(--color-text-muted)]">
                     {item.answer}
                   </p>
                 )}

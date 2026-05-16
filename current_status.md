@@ -7,10 +7,14 @@ This status is based on current code and client requirements documented in:
 ## DONE
 
 - **Core app structure is in place** (App Router with public/protected/admin/api surfaces, shared components, Prisma schema, middleware).
-- **Landing page is implemented** with major required sections from Section 5:
-  - Sticky navbar, hero, problem cards, social proof, curriculum accordion, feature highlights, testimonials, pricing, FAQ, footer.
-  - Mobile sticky enroll bar and exit-intent discount modal.
-  - Floating WhatsApp chat widget.
+- **Landing page is fully redesigned** (according to `sidetick_theme.md`):
+  - Theme changed to a playful, cartoonish light theme (no emojis).
+  - New Hero section with generated stylized vector artwork and Stats card.
+  - New Community & Contact lead form flash card sections.
+  - Stripped out older legacy sections (Pricing, Curriculum, Testimonials, FAQ) to match exact new specs.
+- **UI Theme updated** to a light, playful, and cartoonish theme according to `sidetick_theme.md`.
+- **Indian Market Time Indicator added** to the Navbar with a blinking red dot during open hours.
+- **WhatsApp logic completely removed** from Twilio SMS config, UI components (Freebies/Footer), and project instructions.
 - **Freebies page UI and flow are implemented** (Section 7):
   - Locked cards, unlock modal, OTP send/verify flow, session unlock flag in localStorage, footer CTA.
 - **Freebies OTP backend is implemented**:
@@ -21,8 +25,10 @@ This status is based on current code and client requirements documented in:
   - Routes implemented: `/api/auth/google/start`, `/api/auth/google/callback`, `/api/auth/telegram`, `/api/auth/me`, `/api/auth/logout`.
   - JWT cookie session issuance and session persistence in DB.
 - **Route protection exists** via `middleware.ts` for `/dashboard/*` and `/admin/*` entry checks.
-- **Member portal UI exists** (Section 6):
-  - Dashboard layout + course sidebar + lesson player pages + account page UI.
+- **Member portal UI exists and is seamlessly optimized** (Section 6 & `sidetick_theme.md`):
+  - Dashboard layout features sticky nav with Burger menu (Purchases, Settings, Logout).
+  - Courses page presents a seamless YouTube-like grid interface with customized light-theme components.
+  - Account settings page updated with Telegram linked account, display picture, and full edit options.
   - Video player includes watermark overlay, right-click block, keyboard shortcut guard, and 30-second progress sync attempts.
 - **Security baseline is partially in place** (Section 13):
   - Security headers configured in `next.config.ts`.
@@ -59,8 +65,6 @@ This status is based on current code and client requirements documented in:
   - Need explicit product decision and documentation sync for final auth scope.
 - **Middleware/admin-role hardening required**:
   - Admin role enforcement logic should be reviewed for strict role checks on `/admin/*`.
-- **Twilio config cleanup**:
-  - `lib/sms.ts` still references `TWILIO_WHATSAPP_FROM` while `.env.example` no longer defines it.
 - **Quality/completion items from prompt still pending**:
   - Replace placeholder links/text (e.g., pricing CTA `href="#"`, static instructor/testimonial assets where required).
   - Complete analytics, SEO, and production readiness checklist items from later sections of instructions.

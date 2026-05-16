@@ -6,7 +6,9 @@ const GOOGLE_STATE_COOKIE = "sidetick_google_oauth_state";
 export async function GET(request: Request): Promise<Response> {
   const googleClientId = process.env.GOOGLE_CLIENT_ID;
   if (!googleClientId) {
-    return Response.json({ success: false, error: "Google login is not configured." }, { status: 503 });
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("error", "Google login is not configured.");
+    return NextResponse.redirect(loginUrl);
   }
 
   const state = randomBytes(24).toString("hex");

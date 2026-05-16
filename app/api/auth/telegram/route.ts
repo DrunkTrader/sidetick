@@ -93,14 +93,6 @@ export async function POST(request: Request): Promise<Response> {
       },
     });
 
-    const activePurchase = await db.purchase.findFirst({
-      where: {
-        userId: user.id,
-        status: "ACTIVE",
-      },
-      select: { id: true },
-    });
-
     const authProvider: SessionAuthProvider = "TELEGRAM";
     const sessionToken = await signSessionToken({
       userId: user.id,
@@ -114,7 +106,7 @@ export async function POST(request: Request): Promise<Response> {
       {
         success: true,
         data: {
-          redirectTo: activePurchase ? "/dashboard" : "/",
+          redirectTo: "/dashboard",
         },
       },
       { status: 200 },

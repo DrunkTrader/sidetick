@@ -5,12 +5,15 @@ import {
   signSessionToken,
   type SessionAuthProvider,
 } from "@/lib/auth";
+import { syncGoogleUserToSupabase } from "@/lib/supabase";
 import { NextResponse } from "next/server";
 
 const GOOGLE_STATE_COOKIE = "sidetick_google_oauth_state";
 
 type GoogleTokenResponse = {
   access_token?: string;
+  error?: string;
+  error_description?: string;
 };
 
 type GoogleUserInfo = {
@@ -67,6 +70,12 @@ export async function GET(request: Request): Promise<Response> {
 
     const tokenPayload = (await tokenResponse.json()) as GoogleTokenResponse;
     if (!tokenResponse.ok || !tokenPayload.access_token) {
+      if (tokenPayload.error_description?.includes("redirect_uri_mismatch")) {
+        return redirectToLoginWithError(
+          request,
+          "Google callback URL mismatch. Add /api/auth/google/callback to OAuth redirect URIs.",
+        );
+      }
       return redirectToLoginWithError(request, "Google login failed.");
     }
 
@@ -92,6 +101,17 @@ export async function GET(request: Request): Promise<Response> {
       },
     });
 
+    try {
+      await syncGoogleUserToSupabase({
+        sidetickUserId: user.id,
+        googleId: userPayload.sub,
+        email: user.email ?? null,
+        name: user.name ?? null,
+      });
+    } catch (error) {
+      console.error("[AUTH_GOOGLE_SUPABASE_SYNC]", error);
+    }
+
     const deviceInfo = request.headers.get("user-agent") ?? "unknown";
     const ipAddress =
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
@@ -106,14 +126,6 @@ export async function GET(request: Request): Promise<Response> {
       },
     });
 
-    const activePurchase = await db.purchase.findFirst({
-      where: {
-        userId: user.id,
-        status: "ACTIVE",
-      },
-      select: { id: true },
-    });
-
     const authProvider: SessionAuthProvider = "GOOGLE";
     const sessionToken = await signSessionToken({
       userId: user.id,
@@ -123,8 +135,7 @@ export async function GET(request: Request): Promise<Response> {
       sessionId: session.id,
     });
 
-    const redirectTo = activePurchase ? "/dashboard" : "/";
-    const response = NextResponse.redirect(new URL(redirectTo, request.url));
+    const response = NextResponse.redirect(new URL("/dashboard", request.url));
     response.cookies.set({
       name: getSessionCookieName(),
       value: sessionToken,

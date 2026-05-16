@@ -6,27 +6,21 @@ type SendOtpInput = {
 function getTwilioConfig(): {
   accountSid: string;
   authToken: string;
-  fromPhoneNumber?: string;
-  whatsappFrom?: string;
+  fromPhoneNumber: string;
 } {
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
   const fromPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
-  const whatsappFrom = process.env.TWILIO_WHATSAPP_FROM;
 
   if (!accountSid || !authToken) {
     throw new Error("Missing Twilio configuration");
   }
 
-  if (!fromPhoneNumber && !whatsappFrom) {
+  if (!fromPhoneNumber) {
     throw new Error("Missing Twilio sender configuration");
   }
 
-  return { accountSid, authToken, fromPhoneNumber, whatsappFrom };
-}
-
-function asWhatsappAddress(phoneOrSender: string): string {
-  return phoneOrSender.startsWith("whatsapp:") ? phoneOrSender : `whatsapp:${phoneOrSender}`;
+  return { accountSid, authToken, fromPhoneNumber };
 }
 
 export async function sendOtp(input: SendOtpInput): Promise<void> {
@@ -34,16 +28,12 @@ export async function sendOtp(input: SendOtpInput): Promise<void> {
     throw new Error("Invalid OTP payload");
   }
 
-  const { accountSid, authToken, fromPhoneNumber, whatsappFrom } = getTwilioConfig();
+  const { accountSid, authToken, fromPhoneNumber } = getTwilioConfig();
   const messageBody = `Your Sidetick OTP is ${input.otp}. It expires in 10 minutes.`;
   const authHeader = Buffer.from(`${accountSid}:${authToken}`).toString("base64");
-  const useWhatsapp = Boolean(whatsappFrom);
 
-  const to = useWhatsapp ? asWhatsappAddress(input.phone) : input.phone;
-  const from = useWhatsapp ? asWhatsappAddress(whatsappFrom ?? "") : fromPhoneNumber;
-  if (!from) {
-    throw new Error("Missing Twilio sender configuration");
-  }
+  const to = input.phone;
+  const from = fromPhoneNumber;
 
   const payload = new URLSearchParams({
     To: to,
