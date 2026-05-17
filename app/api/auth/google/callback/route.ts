@@ -135,13 +135,14 @@ export async function GET(request: Request): Promise<Response> {
       sessionId: session.id,
     });
 
-    const response = NextResponse.redirect(new URL("/dashboard", request.url));
+    const redirectPath = user.phone ? "/dashboard" : "/onboarding";
+    const response = NextResponse.redirect(new URL(redirectPath, request.url));
     response.cookies.set({
       name: getSessionCookieName(),
       value: sessionToken,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       path: "/",
       maxAge: getSessionCookieMaxAge(),
     });

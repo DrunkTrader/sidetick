@@ -1,57 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sidetick
 
-## Authentication setup
+**Premium algorithmic trading education platform for Indian retail traders.**
+This is a [Next.js](https://nextjs.org) App Router project integrated with Tailwind CSS, Prisma, and PostgreSQL.
 
-The login flow uses **Google OAuth** and **Telegram Login Widget**.
+## Core Features
 
-Set these environment variables:
+- **Neo-brutalist User Experience**: A highly engaging, premium UI with playful elements, robust Dark Mode support, and a responsive layout designed to "wow" users.
+- **Lead Generation Funnel**: 
+  - Freebies Lead Magnet with OTP verification (Twilio).
+  - Seamless Google OAuth & Telegram Login.
+  - Mandatory User Onboarding flow to capture critical lead details (phone numbers).
+- **Piracy Protection**: 
+  - UI-level protections including dynamic watermarks, disabled right-click, and shortcut guards.
+  - Planned backend DRM & tokenized HLS video streaming (Bunny Stream).
+- **Gated Member Portal**:
+  - Course curriculum management.
+  - Locked vs. Unlocked Free Resources.
+  - Pine Scripts Code Library.
+
+## Environment Variables
+
+Create a `.env` file at the root:
 
 ```bash
+# Database
+DATABASE_URL=
+
+# Authentication
+JWT_SECRET=
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 TELEGRAM_BOT_TOKEN=
 NEXT_PUBLIC_TELEGRAM_BOT_USERNAME=
-JWT_SECRET=
-DATABASE_URL=
-```
 
-After updating Prisma schema for auth providers, sync the database:
-
-```bash
-npx prisma db push
+# External Services (Pending/Active)
+# TWILIO_ACCOUNT_SID=
+# TWILIO_AUTH_TOKEN=
+# RAZORPAY_KEY_ID=
+# RAZORPAY_KEY_SECRET=
 ```
 
 ## Getting Started
 
-First, run the development server:
+1. **Database Setup**:
+   Ensure your PostgreSQL instance is running.
+   ```bash
+   npx prisma db push
+   npx prisma generate
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Run Development Server**:
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the platform.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Frontend**: Next.js 15 App Router, Tailwind CSS v3 (class-based Dark Mode), React 19.
+- **Backend**: Next.js Route Handlers, Prisma ORM, PostgreSQL.
+- **Auth**: Custom JWT session mechanism supporting OAuth callbacks and Telegram verification.

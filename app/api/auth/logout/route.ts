@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { getSessionCookieName, verifySessionToken } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request): Promise<Response> {
+export async function GET(request: Request): Promise<Response> {
   try {
     const cookieHeader = request.headers.get("cookie") ?? "";
     const sessionCookieName = getSessionCookieName();
@@ -28,13 +28,13 @@ export async function POST(request: Request): Promise<Response> {
       }
     }
 
-    const response = NextResponse.json({ success: true }, { status: 200 });
+    const response = NextResponse.redirect(new URL("/login", request.url));
     response.cookies.set({
       name: sessionCookieName,
       value: "",
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       path: "/",
       maxAge: 0,
     });
@@ -42,7 +42,6 @@ export async function POST(request: Request): Promise<Response> {
     return response;
   } catch (error) {
     console.error("[AUTH_LOGOUT]", error);
-    return Response.json({ success: false, error: "Internal server error" }, { status: 500 });
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 }
-
